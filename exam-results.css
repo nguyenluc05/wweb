@@ -1,0 +1,33 @@
+table, th, td, tr {
+  border: 1px solid #000000;
+  border-collapse: collapse;
+}
+
+table {
+  width: 400px;
+  margin: 50px auto;
+  font-family: Arial, sans-serif;
+}
+
+thead th {
+  text-align: center;
+  font-size: 1.2em;
+  padding: 12px;
+}
+
+td {
+  text-align: center;
+  padding-left: 5px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.result {
+  text-align: right;
+  padding-right: 5px;
+  font-weight: bold;
+}

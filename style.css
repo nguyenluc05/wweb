@@ -1,0 +1,113 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #704f35;
+  color: #333;
+}
+
+.image-container {
+  text-align: center;
+  padding-top: 20px;
+}
+
+.image-container img {
+  width: 120px;
+  border-radius: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+form {
+  position: relative;
+  width: 90%;
+  max-width: 470px;
+  margin: 50px auto 0;
+  padding: 50px 60px 70px;
+  background-color: #d5c395;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+form::before {
+  content: '';
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 68px;
+  height: 35px;
+  background: url("img/3.png") no-repeat center center;
+  background-size: cover;
+}
+
+.avatar img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 20px;
+  border-radius: 50%;
+}
+
+.form-field {
+  margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1em;
+  background: #fff8e1;
+  color: #333;
+  outline: none;
+}
+
+input::placeholder {
+  color: #a5855b;
+}
+
+button {
+  padding: 12px 20px;
+  background-color: #8c6239;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #704f35;
+}
+
+footer {
+  font-size: 1em;
+  color: #efe1c4;
+  text-align: center;
+  margin: 20px 0;
+}
+
+div.items a {
+  color: green;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+h1#header.intro {
+  text-decoration: underline;
+  color: #C00;
+}
+
+a:hover {
+  color: #D48F29;
+  text-decoration: underline overline;
+}
+

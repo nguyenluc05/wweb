@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:700|Open+Sans:400,700');
+
+body {
+  background: #927057;
+  font-family: 'Open Sans', sans-serif;
+  padding: 50px;
+}
+
+.login-form {
+  background: #d5c395;
+  padding: 40px;
+  width: 400px;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.fa-input {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.fa-input i {
+  position: absolute;
+  left: 10px;
+  top: 12px;
+  color: #927057;
+}
+
+.fa-input input {
+  width: 100%;
+  padding: 10px 10px 10px 40px;
+  border: none;
+  border-radius: 5px;
+  background: #efe1c4;
+  font-size: 1em;
+  color: #927057;
+}
+
+input[type="submit"] {
+  width: 100%;
+  padding: 10px;
+  background: #927057;
+  color: #d5c395;
+  font-size: 1.2em;
+  border: none;
+  border-radius: 5px;
+}
