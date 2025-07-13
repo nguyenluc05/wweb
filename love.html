@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Love Message with Cute Penguin and Heart Animation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap');
+        html, body {
+            height: 100%;
+            padding: 0;
+            margin: 0;
+            background: #000;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        #greeting, #second-page {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #ffb6c1, #ffdde1);
+            z-index: 10;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        #greeting.hidden, #second-page.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .penguin {
+            position: relative;
+            width: 220px;
+            height: 280px;
+            margin-bottom: 30px;
+            animation: waddle 3s ease-in-out infinite;
+        }
+        .penguin-body {
+            width: 160px;
+            height: 220px;
+            background: #000;
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            top: 60px;
+            left: 30px;
+            border: 5px solid #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .penguin-belly {
+            width: 130px;
+            height: 160px;
+            background: #fff;
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            top: 90px;
+            left: 45px;
+        }
+        .penguin-eye {
+            width: 22px;
+            height: 22px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 90px;
+            border: 3px solid #fff;
+        }
+        .penguin-eye::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            position: absolute;
+            top: 4px;
+            left: 4px;
+        }
+        .penguin-eye.left {
+            left: 65px;
+        }
+        .penguin-eye.right {
+            left: 115px;
+        }
+        .penguin-cheek {
+            width: 30px;
+            height: 30px;
+            background: #ff9999;
+            border-radius: 50%;
+            position: absolute;
+            top: 100px;
+            opacity: 0.7;
+            animation: blush 2s ease-in-out infinite;
+        }
+        .penguin-cheek.left {
+            left: 50px;
+        }
+        .penguin-cheek.right {
+            left: 130px;
+        }
+        @keyframes blush {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+        .penguin-beak {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-top: 18px solid #ffbf00;
+            position: absolute;
+            top: 110px;
+            left: 94px;
+        }
+        .penguin-arm {
+            width: 50px;
+            height: 90px;
+            background: #000;
+            border-radius: 25px;
+            position: absolute;
+            top: 130px;
+            border: 3px solid #fff;
+        }
+        .penguin-arm.left {
+            left: 5px;
+            transform: rotate(25deg);
+        }
+        .penguin-arm.right {
+            left: 165px;
+            transform: rotate(-25deg);
+        }
+        .paper {
+            position: absolute;
+            width: 120px;
+            height: 70px;
+            background: #fff;
+            top: 150px;
+            left: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            color: #ff4d4d;
+            border: 2px solid #ff4d4d;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            transform: rotate(-8deg);
+            animation: wave 2s ease-in-out infinite;
+        }
+        .large-board {
+            width: 400px;
+            height: 300px;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            font-size: 18px;
+            color: #ff4d4d;
+            border: 2px solid #ff4d4d;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transform: rotate(-5deg);
+            animation: wave 2s ease-in-out infinite;
+            margin-left: 20px;
+            padding: 15px;
+            text-align: left;
+            font-family: 'Dancing Script', cursive;
+            overflow-y: auto;
+        }
+        .large-board p {
+            margin: 8px 0;
+        }
+        .second-page-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        @keyframes wave {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(-2deg); }
+        }
+        @keyframes waddle {
+            0%, 100% { transform: rotate(2deg); }
+            50% { transform: rotate(-2deg); }
+        }
+        #greeting button, #second-page button {
+            padding: 12px 25px;
+            font-size: 16px;
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+            margin-top: 15px;
+        }
+        #greeting button:hover, #second-page button:hover {
+            background-color: #e63946;
+            transform: scale(1.05);
+        }
+        canvas {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        canvas.visible {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <div id="greeting">
+        <div class="penguin">
+            <div class="penguin-body"></div>
+            <div class="penguin-belly"></div>
+            <div class="penguin-eye left"></div>
+            <div class="penguin-eye right"></div>
+            <div class="penguin-cheek left"></div>
+            <div class="penguin-cheek right"></div>
+            <div class="penguin-beak"></div>
+            <div class="penguin-arm left"></div>
+            <div class="penguin-arm right"></div>
+            <div class="paper">Anh Yêu Em</div>
+        </div>
+        <button onclick="showSecondPage()">Tiếp</button>
+    </div>
+    <div id="second-page" class="hidden">
+        <div class="second-page-content">
+            <div class="penguin">
+                <div class="penguin-body"></div>
+                <div class="penguin-belly"></div>
+                <div class="penguin-eye left"></div>
+                <div class="penguin-eye right"></div>
+                <div class="penguin-cheek left"></div>
+                <div class="penguin-cheek right"></div>
+                <div class="penguin-beak"></div>
+                <div class="penguin-arm left"></div>
+                <div class="penguin-arm right"></div>
+            </div>
+            <div class="large-board">
+                <p>Anh cũng không biết phải nói sao nữa…</p>
+                <p>Anh chỉ muốn bày tỏ là anh rất yêu em, và cảm ơn em đã chọn anh, cùng anh đi đến tận hôm nay.</p>
+                <p>Anh cực kỳ trân trọng tất cả khoảnh khắc, kỷ niệm của hai đứa mình, dẫu đôi lúc làm nhau buồn – nhưng anh vẫn mừng vì tụi mình vẫn ở đây, vẫn còn tiếp tục.</p>
+                <p>Có lẽ anh quá trẻ con, hay suy nghĩ nên đôi lúc tự cảm thấy mình với em cứ nhạt nhẽo thế nào ấy… Chúng mình vẫn còn đó, nhưng tình cảm thì… anh không chắc nó đang ở đâu.</p>
+                <p>Anh thật sự không muốn kiểm soát hay cấm em làm điều gì, vì anh tin nếu em còn yêu anh, tự em sẽ nghĩ đến cảm giác của anh.</p>
+                <p>Gần đây anh hay mơ thấy em bỏ anh đi, chắc tại nỗi sợ của anh thôi… Anh xin lỗi vì cái tính này, anh sẽ cố gắng thay đổi.</p>
+                <p>Và anh mong dẫu có chuyện gì, tụi mình vẫn chọn ở lại vì nhau – chứ không phải chỉ vì anh níu giữ.</p>
+                <p>Mãi yêu em.</p>
+            </div>
+        </div>
+        <button onclick="showHeart()">Tiếp</button>
+    </div>
+    <canvas id="pinkboard"></canvas>
+    <script>
+        // Show second page and hide greeting
+        function showSecondPage() {
+            document.getElementById('greeting').classList.add('hidden');
+            document.getElementById('second-page').classList.remove('hidden');
+        }
+
+        // Show heart animation and hide second page
+        function showHeart() {
+            document.getElementById('second-page').classList.add('hidden');
+            document.getElementById('pinkboard').classList.add('visible');
+        }
+
+        /*
+         * Settings
+         */
+        var settings = {
+            particles: {
+                length: 500, // maximum amount of particles
+                duration: 2, // particle duration in sec
+                velocity: 100, // particle velocity in pixels/sec
+                effect: -0.75, // play with this for a nice effect
+                size: 30, // particle size in pixels
+            },
+        };
+
+        /*
+         * RequestAnimationFrame polyfill by Erik Möller
+         */
+        (function() {
+            var b = 0;
+            var c = ["ms", "moz", "webkit", "o"];
+            for (var a = 0; a < c.length && !window.requestAnimationFrame; ++a) {
+                window.requestAnimationFrame = window[c[a] + "RequestAnimationFrame"];
+                window.cancelAnimationFrame = window[c[a] + "CancelAnimationFrame"] || window[c[a] + "CancelRequestAnimationFrame"];
+            }
+            if (!window.requestAnimationFrame) {
+                window.requestAnimationFrame = function(h, e) {
+                    var d = new Date().getTime();
+                    var f = Math.max(0, 16 - (d - b));
+                    var g = window.setTimeout(function() { h(d + f); }, f);
+                    b = d + f;
+                    return g;
+                };
+            }
+            if (!window.cancelAnimationFrame) {
+                window.cancelAnimationFrame = function(d) { clearTimeout(d); };
+            }
+        })();
+
+        /*
+         * Point class
+         */
+        var Point = (function() {
+            function Point(x, y) {
+                this.x = (typeof x !== 'undefined') ? x : 0;
+                this.y = (typeof y !== 'undefined') ? y : 0;
+            }
+            Point.prototype.clone = function() {
+                return new Point(this.x, this.y);
+            };
+            Point.prototype.length = function(length) {
+                if (typeof length == 'undefined')
+                    return Math.sqrt(this.x * this.x + this.y * this.y);
+                this.normalize();
+                this.x *= length;
+                this.y *= length;
+                return this;
+            };
+            Point.prototype.normalize = function() {
+                var length = this.length();
+                this.x /= length;
+                this.y /= length;
+                return this;
+            };
+            return Point;
+        })();
+
+        /*
+         * Particle class
+         */
+        var Particle = (function() {
+            function Particle() {
+                this.position = new Point();
+                this.velocity = new Point();
+                this.acceleration = new Point();
+                this.age = 0;
+            }
+            Particle.prototype.initialize = function(x, y, dx, dy) {
+                this.position.x = x;
+                this.position.y = y;
+                this.velocity.x = dx;
+                this.velocity.y = dy;
+                this.acceleration.x = dx * settings.particles.effect;
+                this.acceleration.y = dy * settings.particles.effect;
+                this.age = 0;
+            };
+            Particle.prototype.update = function(deltaTime) {
+                this.position.x += this.velocity.x * deltaTime;
+                this.position.y += this.velocity.y * deltaTime;
+                this.velocity.x += this.acceleration.x * deltaTime;
+                this.velocity.y += this.acceleration.y * deltaTime;
+                this.age += deltaTime;
+            };
+            Particle.prototype.draw = function(context, image) {
+                function ease(t) {
+                    return (--t) * t * t + 1;
+                }
+                var size = image.width * ease(this.age / settings.particles.duration);
+                context.globalAlpha = 1 - this.age / settings.particles.duration;
+                context.drawImage(image, this.position.x - size / 2, this.position.y - size / 2, size, size);
+            };
+            return Particle;
+        })();
+
+        /*
+         * ParticlePool class
+         */
+        var ParticlePool = (function() {
+            var particles,
+                firstActive = 0,
+                firstFree = 0,
+                duration = settings.particles.duration;
+
+            function ParticlePool(length) {
+                particles = new Array(length);
+                for (var i = 0; i < particles.length; i++)
+                    particles[i] = new Particle();
+            }
+            ParticlePool.prototype.add = function(x, y, dx, dy) {
+                particles[firstFree].initialize(x, y, dx, dy);
+                firstFree++;
+                if (firstFree == particles.length) firstFree = 0;
+                if (firstActive == firstFree) firstActive++;
+                if (firstActive == particles.length) firstActive = 0;
+            };
+            ParticlePool.prototype.update = function(deltaTime) {
+                var i;
+                if (firstActive < firstFree) {
+                    for (i = firstActive; i < firstFree; i++)
+                        particles[i].update(deltaTime);
+                }
+                if (firstFree < firstActive) {
+                    for (i = firstActive; i < particles.length; i++)
+                        particles[i].update(deltaTime);
+                    for (i = 0; i < firstFree; i++)
+                        particles[i].update(deltaTime);
+                }
+                while (particles[firstActive].age >= duration && firstActive != firstFree) {
+                    firstActive++;
+                    if (firstActive == particles.length) firstActive = 0;
+                }
+            };
+            ParticlePool.prototype.draw = function(context, image) {
+                if (firstActive < firstFree) {
+                    for (i = firstActive; i < firstFree; i++)
+                        particles[i].draw(context, image);
+                }
+                if (firstFree < firstActive) {
+                    for (i = firstActive; i < particles.length; i++)
+                        particles[i].draw(context, image);
+                    for (i = 0; i < firstFree; i++)
+                        particles[i].draw(context, image);
+                }
+            };
+            return ParticlePool;
+        })();
+
+        /*
+         * Putting it all together
+         */
+        (function(canvas) {
+            var context = canvas.getContext('2d'),
+                particles = new ParticlePool(settings.particles.length),
+                particleRate = settings.particles.length / settings.particles.duration,
+                time;
+
+            function pointOnHeart(t) {
+                return new Point(
+                    160 * Math.pow(Math.sin(t), 3),
+                    130 * Math.cos(t) - 50 * Math.cos(2 * t) - 20 * Math.cos(3 * t) - 10 * Math.cos(4 * t) + 25
+                );
+            }
+
+            var image = (function() {
+                var canvas = document.createElement('canvas'),
+                    context = canvas.getContext('2d');
+                canvas.width = settings.particles.size;
+                canvas.height = settings.particles.size;
+                function to(t) {
+                    var point = pointOnHeart(t);
+                    point.x = settings.particles.size / 2 + point.x * settings.particles.size / 350;
+                    point.y = settings.particles.size / 2 - point.y * settings.particles.size / 350;
+                    return point;
+                }
+                context.beginPath();
+                var t = -Math.PI;
+                var point = to(t);
+                context.moveTo(point.x, point.y);
+                while (t < Math.PI) {
+                    t += 0.01;
+                    point = to(t);
+                    context.lineTo(point.x, point.y);
+                }
+                context.closePath();
+                context.fillStyle = '#ea80b0';
+                context.fill();
+                var image = new Image();
+                image.src = canvas.toDataURL();
+                return image;
+            })();
+
+            function render() {
+                requestAnimationFrame(render);
+                var newTime = new Date().getTime() / 1000,
+                    deltaTime = newTime - (time || newTime);
+                time = newTime;
+                context.clearRect(0, 0, canvas.width, canvas.height);
+                var amount = particleRate * deltaTime;
+                for (var i = 0; i < amount; i++) {
+                    var pos = pointOnHeart(Math.PI - 2 * Math.PI * Math.random());
+                    var dir = pos.clone().length(settings.particles.velocity);
+                    particles.add(canvas.width / 2 + pos.x, canvas.height / 2 - pos.y, dir.x, -dir.y);
+                }
+                particles.update(deltaTime);
+                particles.draw(context, image);
+            }
+
+            function onResize() {
+                canvas.width = canvas.clientWidth;
+                canvas.height = canvas.clientHeight;
+            }
+            window.onresize = onResize;
+
+            setTimeout(function() {
+                onResize();
+                render();
+            }, 10);
+        })(document.getElementById('pinkboard'));
+    </script>
+</body>
+</html>
